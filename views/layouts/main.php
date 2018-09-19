@@ -19,7 +19,11 @@ use yii\helpers\Html;
                 .help-block{
                     color:red
                 }
-            </style>    
+            </style>
+            <script>
+                URL_AJAX = '<?php echo Yii::$app->siteHelper->get_route("") ?>'
+                
+            </script>
     </head>
     <body>
         <?php $this->beginBody() ?>

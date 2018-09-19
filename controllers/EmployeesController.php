@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Employees;
 use yii\web\NotFoundHttpException;
 use yii\web\Controller;
+use Yii;
 
 class EmployeesController extends Controller {
 
@@ -24,7 +25,12 @@ class EmployeesController extends Controller {
     }
 
     public function actionIndex() {
+        $empModel = new Employees(); 
+        $employees = $empModel->find()->asArray()->all();
         
+        return $this->render('index', [
+            'employees' => $employees
+        ]);
     }
 
     public function actionView($id) {
@@ -35,6 +41,18 @@ class EmployeesController extends Controller {
                         'model' => $employee
             ]);
         }
+    }
+    
+    public function actionCreditLimiForEmploye(){
+        $employeId = $_POST['id'];
+        $stn = "select SUM(creditLimit) as creditLimit from customers where salesRepEmployeeNumber=".$employeId;
+        $res = Yii::$app->db->createCommand($stn)->queryAll();
+        echo json_encode($res);
+    }
+    
+    public function actionSumaClientes(){
+        $employeId = $_POST['id'];
+        $comand = new Command();
     }
 
 }
